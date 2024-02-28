@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+basic_cms.access_clinic_patient,access_clinic_patient,basic_cms.model_clinic_patient,base.group_user,1,1,1,1
+basic_cms.access_clinic_doctor,access_clinic_doctor,basic_cms.model_clinic_doctor,base.group_user,1,1,1,1
+basic_cms.access_clinic_accompanist,access_clinic_accompanist,basic_cms.model_clinic_accompanist,base.group_user,1,1,1,1
+basic_cms.access_clinic_medical_diagnosis,access_clinic_medical_diagnosis,basic_cms.model_clinic_medical_diagnosis,base.group_user,1,1,1,1
+basic_cms.access_clinic_states,access_clinic_states,basic_cms.model_clinic_states,base.group_user,1,1,1,1

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="patient_diagnosis_template">
+            <!-- Encabezado del informe -->
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <t t-foreach="docs" t-as="doc">
+                        <div class="page">
+                            <h2>Informe de Diagnósticos del Paciente</h2>
+                            <p>Nombre: <span t-field="doc.name"/></p>
+                            <p>Apellido: <span t-field="doc.last_name"/></p>
+                            <p>Documento: <span t-field="doc.document_type"/> <span t-field="doc.document_number"/></p>
+
+                            <!-- Lista de diagnósticos -->
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Código de Diagnóstico</th>
+                                        <th>Fecha del Diagnóstico</th>
+                                        <th>Médico</th>
+                                        <th>Progreso</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="doc.diagnosis_ids" t-as="diagnosis">
+                                        <tr>
+                                            <td><span t-field="diagnosis.diagnosis_code"/></td>
+                                            <td><span t-field="diagnosis.diagnosis_date"/></td>
+                                            <td><span t-field="diagnosis.doctor_id.name"/> <span t-field="diagnosis.doctor_id.last_name"/></td>
+                                            <td><span t-field="diagnosis.states_id"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+<!--  
+    <tbody>: Agrupa contenido de filas en una tabla HTML.
+    <tr>: Define una fila en una tabla.
+    <td>: Define una celda de datos en una fila de tabla.
+    <span>: Aplica estilos o manipula contenido en HTML.
+    <th>: Define una celda de encabezado en una tabla.
+    <p>: Representa un párrafo de texto en HTML.
+-->

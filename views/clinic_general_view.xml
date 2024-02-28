@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actions for Patient, Doctor, Accompanist, and Diagnosis -->
+    <record id="patient_action" model="ir.actions.act_window">
+        <field name="name">Paciente</field>
+        <field name="res_model">clinic.patient</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Agregar un nuevo paciente
+            </p>
+            <p>
+                Deberás proporcionar la información del paciente
+            </p>
+        </field>
+    </record>
+
+    <record id="doctor_action" model="ir.actions.act_window">
+        <field name="name">Médico</field>
+        <field name="res_model">clinic.doctor</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Agregar un nuevo profesional de la Salud
+            </p>
+            <p>
+                Deberás proporcionar la información legal del Médico
+            </p>
+        </field>
+    </record>
+
+    <record id="accompanist_action" model="ir.actions.act_window">
+        <field name="name">Acompañante</field>
+        <field name="res_model">clinic.accompanist</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Agregar un nuevo acompañante
+            </p>
+            <p>
+                Deberás proporcionar la información del acompañante
+            </p>
+        </field>
+    </record>
+
+    <record id="diagnosis_action" model="ir.actions.act_window">
+        <field name="name">Diagnóstico</field>
+        <field name="res_model">clinic.medical.diagnosis</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Agregar un nuevo diagnóstico médico
+            </p>
+            <p>
+                Deberás proporcionar la información del diagnóstico médico
+            </p>
+        </field>
+    </record>
+
+    <record id="state_action" model="ir.actions.act_window">
+        <field name="name">Estados del paciente</field>
+        <field name="res_model">clinic.states</field>
+        <field name="view_mode">kanban</field>
+    </record>
+    
+    <!-- Views for Patient -->
+    <record id="patient_tree_view" model="ir.ui.view">
+        <field name="name">patient.tree</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="last_name"/>
+                <field name="document_type"/>
+                <field name="document_number"/>
+                <field name="age"/>
+                <field name="gender"/>
+                <field name="address"/>
+                <field name="city"/>
+                <field name="postal_code"/>
+                <field name="phone"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="patient_form_view" model="ir.ui.view">
+        <field name="name">patient.form</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <form string="Formulario de Paciente">
+                <sheet>
+                    <group>
+                        <field name="name" string="Nombre"/>
+                        <field name="last_name" string="Apellido"/>
+                        <field name="birth_date" string="Fecha de Nacimiento"/>
+                        <field name="gender" string="Género"/>
+                    </group>
+                    <group col='2'>
+                        <group>
+                            <field name="document_type" string="Tipo de Documento"/>
+                            <field name="document_number" string="Número de Documento"/>
+                            <field name="active" string="Activo"/>
+                            <field name="states_ids" string="Estado de Salud" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Información de Contacto">
+                            <group>
+                                <field name="address" string="Dirección"/>
+                                <field name="city" string="Ciudad"/>
+                                <field name="postal_code" string="Código Postal"/>
+                                <field name="phone" string="Teléfono"/>
+                            </group>
+                        </page>
+                        <page string="Información Médica">
+                            <group>
+                                <field name="primary_doctor_id" string="Médico de cabecera"/>
+                                <field name="doctors_ids" string="Médicos que lo han revisado"/>
+                                <field name="diagnosis_ids" string="Diagnósticos"/>
+                                <field name="companions_ids" string="Acompañantes"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_patient_search" model="ir.ui.view">
+        <field name="name">clinic.patient_search</field>
+        <field name="model">clinic.patient</field>
+        <field name="arch" type="xml">
+            <search string="Búsqueda de pacientes">
+                <field name="name" string="Nombre" />
+                <field name="last_name" string="Apellido" />
+                <field name="document_number" string="Tipo de Documento" />
+                <field name="birth_date" string="Fecha de Nacimiento" />
+                <field name="gender" string="Género" />
+                <separator/>
+                <filter string="Pacientes Activos" name="active_patients" domain="[('active', '=', True)]"/>
+                <filter string="Masculinos" name="male_patients" domain="[('gender', '=', 'male')]"/>
+                <filter string="Femeninos" name="female_patients" domain="[('gender', '=', 'female')]"/>
+                <filter string="Otros" name="other_patients" domain="[('gender', '=', 'other')]"/>
+                <group expand="1" string="Agrupar Por">
+                    <filter string="Género" name="gender" context="{'group_by':'gender'}"/>
+                    <filter string="Niños" name="kid" domain="[('age', '&lt;', 12)]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Views for Doctor -->
+    <record id="doctor_tree_view" model="ir.ui.view">
+        <field name="name">doctor.tree</field>
+        <field name="model">clinic.doctor</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="last_name"/>
+                <field name="registration_number"/>
+                <field name="phone"/>
+                <field name="specialties"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="doctor_form_view" model="ir.ui.view">
+        <field name="name">doctor.form</field>
+        <field name="model">clinic.doctor</field>
+        <field name="arch" type="xml">
+            <form string="Formulario de Médico">
+                <sheet>
+                    <group>
+                        <field name="name" string="Nombre"/>
+                        <field name="last_name" string="Apellido"/>
+                        <field name="registration_number" string="Matrícula"/>
+                        <field name="specialties" string="Especialidad"/>
+                        <field name="active" string="Activo"/>
+                    </group>
+                    <notebook>
+                        <page string="Información Médica">
+                            <group>
+                                <field name="patients_ids" string="Pacientes Asignados"/>
+                                <field name="reviewed_patients_ids" string="Pacientes Revisados"/>
+                                <field name="diagnosis_ids" string="Diagnósticos"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="doctor_search_view" model="ir.ui.view">
+        <field name="name">doctor.search</field>
+        <field name="model">clinic.doctor</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Médicos">
+                <field name="name" string="Nombre"/>
+                <field name="last_name" string="Apellido"/>
+                <field name="registration_number" string="Matrícula"/>
+                <field name="specialties" string="Especialidad"/>
+                <separator/>
+                <group expand="1" string="Agrupar Por">
+                    <filter string="Especialidad" name="specialties" context="{'group_by':'specialties'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Views for Accompanist -->
+    <record id="accompanist_tree_view" model="ir.ui.view">
+        <field name="name">accompanist.tree</field>
+        <field name="model">clinic.accompanist</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="last_name"/>
+                <field name="relationship"/>
+                <field name="phone"/>
+                <field name="patients_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="accompanist_form_view" model="ir.ui.view">
+        <field name="name">accompanist.form</field>
+        <field name="model">clinic.accompanist</field>
+        <field name="arch" type="xml">
+            <form string="Formulario de Acompañante">
+                <sheet>
+                    <group>
+                        <field name="name" string="Nombre"/>
+                        <field name="last_name" string="Apellido"/>
+                        <field name="patients_id" string="Paciente Acompañado"/>
+                        <field name="relationship" string="Parentesco" invisible="not patients_id"/>
+                        <field name="phone" string="Teléfono"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="accompanist_search_view" model="ir.ui.view">
+        <field name="name">accompanist.search</field>
+        <field name="model">clinic.accompanist</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Acompañantes">
+                <field name="name" string="Nombre"/>
+                <field name="last_name" string="Apellido"/>
+                <field name="patients_id" string="Paciente Acompañado"/>
+                <field name="relationship" string="Parentesco"/>
+                <field name="phone" string="Teléfono"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Views for Diagnosis -->
+    <record id="diagnosis_tree_view" model="ir.ui.view">
+        <field name="name">diagnosis.tree</field>
+        <field name="model">clinic.medical.diagnosis</field>
+        <field name="arch" type="xml">
+            <tree default_order="diagnosis_date desc">
+                <field name="states_id"/>
+                <field name="diagnosis_code"/>
+                <field name="diagnosis_date"/>
+                <field name="doctor_id"/>
+                <field name="patient_id"/>
+            </tree>
+        </field>
+    </record>
+    
+    
+    <record id="diagnosis_form_view" model="ir.ui.view">
+        <field name="name">diagnosis.form</field>
+        <field name="model">clinic.medical.diagnosis</field>
+        <field name="arch" type="xml">
+            <form string="Formulario de Diagnóstico">
+                <header>
+                    <button name="set_state_ingresado" type="object" string="Ingresado" icon="fa-sign-in"/>
+                    <button name="set_state_internado" type="object" string="Internado" icon="fa-bed"/>
+                    <button name="set_state_tratamiento" type="object" string="En Tratamiento" icon="fa-spinner"/>
+                    <button name="set_state_curado" type="object" string="Curado" icon="fa-check"/>
+                    <button name="set_state_diagnosticado" type="object" string="Diagnosticado" icon="fa-crosshairs"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="diagnosis_code" string="Diagnóstico"/>
+                        <field name="diagnosis_date" string="Fecha de Diagnóstico"/>
+                        <field name="doctor_id" string="Médico"/>
+                        <field name="patient_id" string="Paciente"/>
+                        <field name="states_id" string="Estado de Avance"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="diagnosis_search_view" model="ir.ui.view">
+        <field name="name">diagnosis.search</field>
+        <field name="model">clinic.medical.diagnosis</field>
+        <field name="arch" type="xml">
+            <search string="Buscar Diagnósticos">
+                <field name="diagnosis_code" string="Diagnóstico"/>
+                <field name="diagnosis_date" string="Fecha de Diagnóstico"/>
+                <field name="doctor_id" string="Médico"/>
+                <field name="patient_id" string="Paciente"/>
+                <group expand="1" string="Agrupar Por">
+                    <filter string="Diagnóstico" name="diagnosis" context="{'group_by':'diagnosis_code'}"/>
+                    <filter string="Paciente" name="patient" context="{'group_by':'patient_id'}"/>
+                    <filter string="Médico" name="doctor" context="{'group_by':'doctor_id'}"/>
+                    <filter string="Estado" name="states_id" context="{'group_by':'states_id'}"/>
+                    <filter string="Fecha de Diagnóstico" name="diagnosis_date" context="{'group_by':'diagnosis_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Menu Items -->
+    <menuitem id="menu_root" name="Clínica Mendocina">
+        <menuitem id="patients_menu" name="Pacientes">
+            <menuitem id="patient_menu_action" action="patient_action"/>
+            <menuitem id="accompanist_menu_action" action="accompanist_action"/>
+        </menuitem>
+        <menuitem id="doctors_menu" name="Profesionales de la Salud">
+            <menuitem id="doctor_menu_action" action="doctor_action"/>
+        </menuitem>
+        <menuitem id="diagnoses_menu" name="Diagnósticos">
+            <menuitem id="diagnosis_menu_action" action="diagnosis_action"/>
+            <menuitem id="state_menu_action" action="state_action"/>
+        </menuitem>
+    </menuitem>
+</odoo>
+
