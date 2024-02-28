@@ -7,7 +7,7 @@
 Para instalar este módulo, debe:
 
 Descargar el módulo y agregarlo a su carpeta de addons de Odoo. Después, inicie sesión en
-su servidor de Odoo y vaya al menú Aplicaciones. Active el modo de depuración y actualice el
+su servidor de Odoo y vaya al menú Aplicaciones. Active el modo developer y actualice el
 lista haciendo clic en el enlace "Actualizar lista de aplicaciones".
 Buscar 'basic_cms'. Ahora instale el módulo haciendo clic en el botón de instalación.
 
@@ -55,6 +55,17 @@ basic_cms/
 
 ![plot](./classes_Project.png)
 ![plot](./packages_Project.png)
+
+## Funciones
+
+Se han desarrollado 3 funciones capaces de cumplir con los objetivos planteados en los requerimientos técnicos.
+En su definición se encuentran detallados casos de uso.
+
+* patient.py
+  * _create_patient
+* medical_diagnosis.py 
+  * _create_diagnosis
+  * _get_list
 
 ### Creditos
 
