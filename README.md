@@ -67,6 +67,10 @@ En su definición se encuentran detallados casos de uso.
   * _create_diagnosis
   * _get_list
 
+# Adicionales 
+* El modelo del paciente posee la posibilidad de imprimir un reporte.
+* Es posible hacer uso de una base de datos ejemplo para probar el módulo.
+
 ### Creditos
 
 * _Agüero Santiago <143agueros@gmail.com>_
