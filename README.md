@@ -33,24 +33,26 @@ Luego, puede comenzar a establecer diagnósticos para los pacientes.
 ### Estructura
 
 basic_cms/
-    __init__.py
-    __manifest__.py
-    models/
-        __init__.py
-        patient.py
-        doctor.py
-        medical_diagnosis.py
-        states.py
-        accompanist.py
-    views/
-        clinic_general_view.xml
-    report/
-        patient_report.xml
-        patient_template.xml
-    static/
-        icon.png
-    security/
-        ir.model.access.csv
+*   __init__.py
+*   __manifest__.py
+*   models/
+*     __init__.py
+*     patient.py
+*     doctor.py
+*     medical_diagnosis.py
+*     states.py
+*     accompanist.py (optional)
+*   views/
+*     clinic_general_view.xml
+*   report/
+*     patient_report.xml
+*     patient_template.xml
+*   static/
+*     icon.png
+*   security/
+*     ir.model.access.csv
+
+
 ![plot](./classes_Project.png)
 ![plot](./packages_Project.png)
 
