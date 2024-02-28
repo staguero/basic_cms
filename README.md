@@ -1,6 +1,6 @@
 ### Odoo 17
 
-## Sistema de Gestión Clínica Médica
+# Sistema de Gestión Clínica Médica
 
 ### Instalación
 
@@ -24,13 +24,13 @@ Puede actualizar el módulo utilizando la línea de comandos.
 Vaya a la carpeta de addons de Odoo y ejecute el siguiente comando:
 '-u basic_cms'
 
-### Configuración
+## Configuración
 
 Es una buena práctica comenzar cargando los profesionales de la salud
 y luego los pacientes. 
 Luego, puede comenzar a establecer diagnósticos para los pacientes.
 
-### Estructura
+## Estructura
 
 basic_cms/
   * __init__.py
@@ -67,10 +67,10 @@ En su definición se encuentran detallados casos de uso.
   * _create_diagnosis
   * _get_list
 
-# Adicionales 
+### Adicionales 
 * El modelo del paciente posee la posibilidad de imprimir un reporte.
-* Es posible hacer uso de una base de datos ejemplo para probar el módulo.
+* Inlcuye base de datos ejemplo para probar el módulo.
 
-### Creditos
+## Creditos
 
 * _Agüero Santiago <143agueros@gmail.com>_
